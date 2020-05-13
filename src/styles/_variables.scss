@@ -1,0 +1,76 @@
+// colors
+$blue: #4267b2;
+$white: #fff;
+$bg-default: #e9ebee;
+$navbar-default-bg: #fff;
+$gray-base: #000;
+$navbar-height: 40px;
+
+$border-radius: 7px 7px;
+
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark: lighten($gray-base, 20%) !default; // #333
+$gray: lighten($gray-base, 33.5%) !default; // #555
+$gray-light: lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
+
+$brand-primary: darken(#428bca, 6.5%) !default; // #337ab7
+$brand-success: #5cb85c !default;
+$brand-info: #5bc0de !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger: #d9534f !default;
+
+// fonts
+$font-family-sans-serif: 'Lato', sans-serif !default;
+
+// Element spacing
+$base-spacing: 1em;
+$base-margin: 5px;
+
+// Borders ============================
+$border-base: 2px solid $gray-lighter;
+
+
+// Breakpoints
+$bp-larger-than-iphone5    : "min-width: 350px" !default;
+$bp-larger-than-iphone6    : "min-width: 374px" !default;
+$bp-larger-than-mobile    : "min-width: 400px" !default;
+$bp-larger-than-phablet   : "min-width: 550px" !default;
+$bp-larger-than-tablet    : "min-width: 750px" !default;
+$bp-larger-than-desktop   : "min-width: 1000px" !default;
+$bp-larger-than-desktophd : "min-width: 1200px" !default;
+$bp-larger-than-note : "min-width: 1360px" !default;
+$bp-larger-than-desktopfullhd   : "min-width: 1520px" !default;
+
+
+
+//Grid Variables
+$container-width: 750px !default;
+$container-width-larger-than-mobile: 100% !default;
+$container-width-larger-than-phablet: 100% !default;
+$container-width-larger-than-desktop: 100% !default;
+$container-width-larger-than-1400: 100% !default;
+$total-columns: 12 !default;
+$column-width: 100 / $total-columns !default; // calculates individual column width based off of # of columns
+$column-margin: 0% !default; // space between columns
+
+// Misc
+$global-radius: 0px !default;
+
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+// For devices larger than 400px
+@media (#{$bp-larger-than-mobile}) {
+    .container {
+        width: $container-width-larger-than-mobile;
+        padding: 0;
+    }
+}
