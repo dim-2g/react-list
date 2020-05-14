@@ -3,7 +3,15 @@
         "translation": {
             "test_message": "Это тестовое сообщение",
             "delete": "Удалить",
-            "add": "Добавить"
+            "add": "Добавить",
+            "sort":"Сортировка",
+            "sort_by_name":"Имя",
+            "sort_by_age":"Возраст",
+            "sort_dir_asc":"По-возрастанию",
+            "sort_dir_desc":"По-убыванию",
+            "view":"Вид",
+            "table_view":"Таблица",
+            "preview_view":"Превью"
         }
     }
 }

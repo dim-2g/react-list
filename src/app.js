@@ -5,6 +5,9 @@ import orderBy from 'lodash/orderBy';
 import uuid from 'uuid';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import i18next from 'i18next';
+import { connect } from 'react-redux';
+import { itemsFetchData } from './actions/users';
+import { setLang } from './actions/lang';
 
 import ErrorMessage from './components/error/Error';
 import Nav from './components/nav/navbar';
@@ -17,7 +20,6 @@ import * as enLocale from './lang/en.json';
 import * as API from './shared/http';
 import Post from './components/post/Post';
 
-
 /**
  * The app component serves as a root for the project and renders either children,
  * the error state, or a loading state
@@ -25,8 +27,10 @@ import Post from './components/post/Post';
  * @module letters/components
  */
 class App extends Component {
+    
     constructor(props) {
         super(props);
+        /*
         this.state = {
             error: null,
             loading: false,
@@ -42,16 +46,21 @@ class App extends Component {
             sortDir: "asc",
             viewType: 'table',
         };
-        this.getPosts = this.getPosts.bind(this);
+        */
+        //this.getPosts = this.getPosts.bind(this);
+        //this.setLanguage = this.setLanguage.bind(this);
     }
+    
     static propTypes = {
         children: PropTypes.node,
     };
     componentWillMount() {
-        this.setLanguage('en');
+        console.log(this.props.lang);
+        this.setLanguage(this.props.lang);
     }
     componentDidMount() {
-        this.getWorkers();
+        //this.getWorkers();
+        this.props.fetchDataAction('/data/data.json');
     }
     componentDidCatch(err, info) {
         console.error(err);
@@ -72,8 +81,8 @@ class App extends Component {
             lng: language,
             resources: langResources
         });
-        this.setState(() => ({lang: language}));
-        //this.props.actions.changeLanguage(i18next);
+        //this.setState(() => ({lang: language}));
+        this.props.setLangAction(language);
     }
 
     getPosts() {
@@ -107,16 +116,14 @@ class App extends Component {
         this.setState(() => ({users: newUsers}));
     }
     render() {
-        const { sortBy, sortDir, viewType, lang} = this.state;
+        const { sortBy, sortDir, viewType, lang } = this.props;
+        const { setLangAction } = this.props;
         return (
             <div className="app">
                 <div className="container">
-                    <Langpanel lang={lang} />
+                    <Langpanel lang={lang} changeLang={this.setLanguage.bind(this)} />
                     <Controls />
-                    <div>
-                        <button onClick={this.setLanguage.bind(this, 'en')}>English</button>
-                        <button onClick={this.setLanguage.bind(this, 'ru')}>Русский</button>
-                    </div>
+                    
                     <div>{i18next.t('test_message')}</div>
                     <div>
                         <button className="btn" onClick={() => this.deleteUser()}>{i18next.t('delete')}</button>
@@ -125,22 +132,7 @@ class App extends Component {
                     <TransitionGroup
                         className="todo-list"
                      >
-                    {this.state.users.map( (item, index) => {
-                        const delay = index * 50;
-                        return (
-                        <CSSTransition
-                            key={item.id}
-                            timeout={300}
-                            classNames="item"
-                        >
-                            <div className="card" key={item.id}>
-                                <div className="card-body justify-content-between">
-                                    {item.name}
-                                </div>
-                            </div>
-                        </CSSTransition>
-                        )
-                        })}
+                    
                     </TransitionGroup>
                 </div>
             </div>
@@ -148,4 +140,24 @@ class App extends Component {
     }
 }
 
-export default App;
+export const mapStateToProps = state => {
+    console.log('state');
+    console.log(state);
+    return {
+        error: state.error,
+        loading: state.loading,
+        users: state.users,
+        sortBy: state.sortBy,
+        lang: state.lang
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchDataAction: (url) => dispatch(itemsFetchData(url)),
+        setLangAction: (lang) => dispatch(setLang(lang)),
+        setViewAction: (view) => dispatch(setView(view))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

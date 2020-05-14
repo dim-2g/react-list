@@ -3,7 +3,15 @@
         "translation": {
             "test_message": "This is a test message",
             "delete": "Delete",
-            "add": "Add"
+            "add": "Add",
+            "sort":"Sort by",
+            "sort_by_name":"Name",
+            "sort_by_age":"Age",
+            "sort_dir_asc":"ASC",
+            "sort_dir_desc":"DESC",
+            "view":"View as",
+            "table_view":"Table",
+            "preview_view":"Preview"
         }
     }
 }
