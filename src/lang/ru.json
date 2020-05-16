@@ -11,7 +11,8 @@
             "sort_dir_desc":"По-убыванию",
             "view":"Вид",
             "table_view":"Таблица",
-            "preview_view":"Превью"
+            "preview_view":"Превью",
+            "years_old":"лет"
         }
     }
 }

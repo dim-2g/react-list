@@ -1,13 +1,19 @@
 import * as types from '../constants/types';
 
 export function itemsFetchDataSuccess(users) {
-    console.log('action creater');
-    console.log(users);
     return {
         type: types.users.ITEMS_FETCH_DATA_SUCCESS,
         users
     };
 }
+
+export function toggleFavourite(userId) {
+    return {
+        type: types.users.TOGGLE_FAVOURITE,
+        userId
+    };
+}
+
 
 export function itemsFetchData(url) {
     console.log('action itemsFetchData');

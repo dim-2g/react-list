@@ -13,6 +13,7 @@ import ErrorMessage from './components/error/Error';
 import Nav from './components/nav/navbar';
 import Controls from './components/controls/controls';
 import Langpanel from './components/controls/langpanel';
+import UserList from './components/userlist/userlist';
 import Loader from './components/Loader';
 import * as ruLocale from './lang/ru.json';
 import * as enLocale from './lang/en.json';
@@ -116,29 +117,26 @@ class App extends Component {
         this.setState(() => ({users: newUsers}));
     }
     render() {
-        const { sortBy, sortDir, viewType, lang } = this.props;
+        const { sortBy, sortDir, viewType, lang, users } = this.props;
         const { setLangAction } = this.props;
         return (
             <div className="app">
                 <div className="container">
                     <Langpanel lang={lang} changeLang={this.setLanguage.bind(this)} />
                     <Controls />
-                    
-                    <div>{i18next.t('test_message')}</div>
-                    <div>
-                        <button className="btn" onClick={() => this.deleteUser()}>{i18next.t('delete')}</button>
-                        <button className="btn" onClick={() => this.addUser()}>{i18next.t('add')}</button>
-                    </div>
-                    <TransitionGroup
-                        className="todo-list"
-                     >
-                    
-                    </TransitionGroup>
+                    <UserList />
                 </div>
             </div>
         );
     }
 }
+/*
+<TransitionGroup
+className="todo-list"
+>
+....
+</TransitionGroup>
+*/
 
 export const mapStateToProps = state => {
     console.log('state');

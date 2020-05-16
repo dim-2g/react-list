@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import Sortpanel from './sortpanel';
 import Viewpanel from './viewpanel';
 import { setView } from '../../actions/view';
+import { setSortBy, setSortDir }  from '../../actions/sort';
 
 export const Controls = (props) => {
-    const { view, lang } = props;
-    const { setViewAction } = props;
+    const { view, lang, sortBy, sortDir, users } = props;
+    const { setViewAction, setSortByAction, setSortDirAction } = props;
     return (
     <div className="controls">
         <div className="controls__grid">
             <div className="controls__sort">
-                <Sortpanel lang={lang}/>
+                <Sortpanel />
             </div>
             <div className="controls__view">
                 <Viewpanel lang={lang} view={view} setView={setViewAction} />
@@ -27,6 +28,7 @@ export const mapStateToProps = state => {
         loading: state.loading,
         users: state.users,
         sortBy: state.sortBy,
+        sortDir: state.sortDir,
         view: state.view,
         lang: state.lang
     };
@@ -34,7 +36,9 @@ export const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setViewAction: (view) => dispatch(setView(view))
+        setViewAction: (view) => dispatch(setView(view)),
+        setSortByAction: (key) => dispatch(setSortBy(key)),
+        setSortDirAction: (key) => dispatch(setSortDir(key))
     };
 };
 
