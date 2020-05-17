@@ -14,4 +14,3 @@ export const Langpanel = (props) => (
 );
 
 export default Langpanel;
-

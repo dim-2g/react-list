@@ -13,7 +13,7 @@ export const UserListPreview = (props) => {
     );
     const videoClass = user.video ? ' userlist__item--video' : '';
     return (
-        <div class={`userlist__item${videoClass}`} key={user.id}>
+        <div className={`userlist__item${videoClass}`} key={user.id}>
             <div className="user-preview">
                 <div className="user-preview__info">
                     <div className="user-preview__top">
@@ -33,6 +33,7 @@ export const UserListPreview = (props) => {
                             url={`/static/videos/${user.video}.mp4`} 
                             playing  
                             width="100%"
+                            height="250px"
                         />
                     </div>
                 }

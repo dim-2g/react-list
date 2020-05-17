@@ -14,6 +14,12 @@ export function toggleFavourite(userId) {
     };
 }
 
+export function usersVisualSuccess(users) {
+    return {
+        type: types.users.USERS_VISUAL,
+        users
+    };
+}
 
 export function itemsFetchData(url) {
     console.log('action itemsFetchData');
@@ -31,7 +37,10 @@ export function itemsFetchData(url) {
                 return response;
             })
             .then((response) => response.json())
-            .then((items) => dispatch(itemsFetchDataSuccess(items)))
+            .then((items) => {
+                dispatch(itemsFetchDataSuccess(items))
+                //dispatch(usersVisualSuccess(items))
+            })
             .catch(() => console.log('error')/*dispatch(itemsHasErrored(true))*/);
     };
 }

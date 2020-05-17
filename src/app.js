@@ -8,12 +8,15 @@ import i18next from 'i18next';
 import { connect } from 'react-redux';
 import { itemsFetchData } from './actions/users';
 import { setLang } from './actions/lang';
+import { itemsFetchDataSuccess }  from './actions/users';
+import { setTerm }  from './actions/term';
 
 import ErrorMessage from './components/error/Error';
 import Nav from './components/nav/navbar';
 import Controls from './components/controls/controls';
 import Langpanel from './components/controls/langpanel';
 import UserList from './components/userlist/userlist';
+import SearchBar from './components/searchbar/searchbar';
 import Loader from './components/Loader';
 import * as ruLocale from './lang/ru.json';
 import * as enLocale from './lang/en.json';
@@ -28,28 +31,8 @@ import Post from './components/post/Post';
  * @module letters/components
  */
 class App extends Component {
-    
     constructor(props) {
         super(props);
-        /*
-        this.state = {
-            error: null,
-            loading: false,
-            posts: [],
-            endpoint: `${process.env
-                .ENDPOINT}/posts?_page=1&_sort=date&_order=DESC&_embed=comments&_expand=user&_embed=likes`,
-            workersEndpoint: '/data/data.json',
-            users: [],
-            stateOfIn: false,
-            message : "",
-            lang: "en",
-            sortBy: "id",
-            sortDir: "asc",
-            viewType: 'table',
-        };
-        */
-        //this.getPosts = this.getPosts.bind(this);
-        //this.setLanguage = this.setLanguage.bind(this);
     }
     
     static propTypes = {
@@ -72,7 +55,6 @@ class App extends Component {
     }
 
     setLanguage(language) {
-
         let langResources = ruLocale;
         switch (language) {
             case 'en':
@@ -82,7 +64,6 @@ class App extends Component {
             lng: language,
             resources: langResources
         });
-        //this.setState(() => ({lang: language}));
         this.props.setLangAction(language);
     }
 
@@ -117,13 +98,13 @@ class App extends Component {
         this.setState(() => ({users: newUsers}));
     }
     render() {
-        const { sortBy, sortDir, viewType, lang, users } = this.props;
-        const { setLangAction } = this.props;
+        const { lang, setTermAction } = this.props;
         return (
             <div className="app">
                 <div className="container">
                     <Langpanel lang={lang} changeLang={this.setLanguage.bind(this)} />
                     <Controls />
+                    <SearchBar onChange={setTermAction} />
                     <UserList />
                 </div>
             </div>
@@ -145,6 +126,7 @@ export const mapStateToProps = state => {
         error: state.error,
         loading: state.loading,
         users: state.users,
+        //users: state.users,
         sortBy: state.sortBy,
         lang: state.lang
     };
@@ -154,7 +136,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchDataAction: (url) => dispatch(itemsFetchData(url)),
         setLangAction: (lang) => dispatch(setLang(lang)),
-        setViewAction: (view) => dispatch(setView(view))
+        setViewAction: (view) => dispatch(setView(view)),
+        updateUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
+        setTermAction: (term) => dispatch(setTerm(term))
     };
 };
 

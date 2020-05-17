@@ -12,7 +12,11 @@
             "view":"Вид",
             "table_view":"Таблица",
             "preview_view":"Превью",
-            "years_old":"лет"
+            "years_old":"лет",
+            "favourite_add":"Добавить в избранное",
+            "favourite_remove":"Убрать из избранного",
+            "search_no_result":"Нет подходящих результатов",
+            "search_placeholder":"Введите имя для фильтрации"
         }
     }
 }

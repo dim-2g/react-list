@@ -12,7 +12,11 @@
             "view":"View as",
             "table_view":"Table",
             "preview_view":"Preview",
-            "years_old":"years"
+            "years_old":"years",
+            "favourite_add":"Add to favourite",
+            "favourite_remove":"Remove from favourite",
+            "search_no_result":"No matching results",
+            "search_placeholder":"Enter Name to filter"
         }
     }
 }

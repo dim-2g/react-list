@@ -198,6 +198,15 @@ body {
     flex-wrap: wrap;
     margin-left: -8px;
     margin-right: -8px;
+    &__item-row{
+        padding: 0 8px;
+        width: 100%;
+        + .userlist__item-row{
+            .user-row{
+                border-top: 1px solid #cecece;
+            }
+        }
+    }
     &__item{
         width: 50%;
         padding: 0 8px;
@@ -205,6 +214,13 @@ body {
         &--video{
             width: 100%;
         }
+    }
+    &__no-result{
+        text-align: center;
+        font-weight: 700;
+        padding: 0 8px;
+        width: 100%;
+        font-size: 12px;
     }
 }
 
@@ -273,6 +289,7 @@ body {
     }
     &__video{
         width: 100%;
+        background-color: #000;
     }
     &__top{
         display: flex;
@@ -313,5 +330,14 @@ body {
     }
     &__phrase{
         font-size: 14px;
+    }
+}
+
+.searchbar{
+    margin-bottom: 10px;
+    input[type]{
+        border: 1px solid #cecece;
+        width: 100%;
+        padding: 12px 20px;
     }
 }

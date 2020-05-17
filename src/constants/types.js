@@ -6,7 +6,8 @@ export const lang = {
 
 export const users = {
     ITEMS_FETCH_DATA_SUCCESS: 'users/fetch/success',
-    TOGGLE_FAVOURITE: 'users/favourite/toggle'
+    TOGGLE_FAVOURITE: 'users/favourite/toggle',
+    USERS_VISUAL: 'users/init'
 };
 
 export const view = {
@@ -16,4 +17,8 @@ export const view = {
 export const sort = {
     SET: 'sortBy/set',
     SET_DIR: 'sortDir/set'
+};
+
+export const term = {
+    SET: 'term/set'
 };
