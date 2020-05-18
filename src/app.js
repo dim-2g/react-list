@@ -10,6 +10,8 @@ import { itemsFetchData } from './actions/users';
 import { setLang } from './actions/lang';
 import { itemsFetchDataSuccess }  from './actions/users';
 import { setTerm }  from './actions/term';
+import { setSortBy, setSortDir }  from './actions/sort';
+import { setView } from './actions/view';
 
 import ErrorMessage from './components/error/Error';
 import Nav from './components/nav/navbar';
@@ -39,13 +41,15 @@ class App extends Component {
         children: PropTypes.node,
     };
     componentWillMount() {
-        console.log(this.props.lang);
         this.setLanguage(this.props.lang);
     }
     componentDidMount() {
-        //this.getWorkers();
+        //подгружаем пользователей
         this.props.fetchDataAction('/data/data.json');
+        //обрабатываем адресную строку для инициализации нужного фильтра
+        this.urlToProps();
     }
+    
     componentDidCatch(err, info) {
         console.error(err);
         console.error(info);
@@ -53,7 +57,27 @@ class App extends Component {
             error: err,
         }));
     }
-
+    getUrlParam = function(name) {
+        return new URLSearchParams(window.location.search).get(name);
+    }
+    urlToProps = function() {
+        let sortBy = this.getUrlParam('sort_by');
+        if (sortBy) {
+            this.props.setSortByAction(sortBy);
+        }
+        let sortDir = this.getUrlParam('sort_dir');
+        if (sortDir) {
+            this.props.setSortDirAction(sortDir);
+        }
+        let term = this.getUrlParam('term');
+        if (term) {
+            this.props.setTermAction(term);
+        }
+        let view = this.getUrlParam('view');
+        if (view) {
+            this.props.setViewAction(view);
+        }
+    }
     setLanguage(language) {
         let langResources = ruLocale;
         switch (language) {
@@ -120,8 +144,8 @@ className="todo-list"
 */
 
 export const mapStateToProps = state => {
-    console.log('state');
-    console.log(state);
+    //console.log('state');
+    //console.log(state);
     return {
         error: state.error,
         loading: state.loading,
@@ -138,7 +162,10 @@ const mapDispatchToProps = (dispatch) => {
         setLangAction: (lang) => dispatch(setLang(lang)),
         setViewAction: (view) => dispatch(setView(view)),
         updateUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
-        setTermAction: (term) => dispatch(setTerm(term))
+        setTermAction: (term) => dispatch(setTerm(term)),
+        setSortByAction: (key) => dispatch(setSortBy(key)),
+        setSortDirAction: (key) => dispatch(setSortDir(key)),
+        setViewAction: (view) => dispatch(setView(view))
     };
 };
 

@@ -2,11 +2,18 @@ import React from 'react';
 import classNames from 'classnames';
 import i18next from 'i18next';
 
+import setUrlHistory from '../history';
+
 export const Viewpanel = (props) => {
     const { view } = props;
-    const { setView } = props;
+    //const { setView } = props;
     const tableClass = classNames('btn', {'btn-blue':view=='table'}, {'btn-primary':view!='table'});
     const previewClass = classNames('btn', {'btn-blue':view=='preview'}, {'btn-primary':view!='preview'});
+    const setView = function(e, view) {
+        e.preventDefault();
+        props.setView(view);
+        setUrlHistory({name:'view', value:view});
+    }
     return (
     <div className="viewpanel">
         <div className="controls__header">
@@ -14,10 +21,10 @@ export const Viewpanel = (props) => {
         </div>
         <div className="viewpanel__buttons">
             <div className="viewpanel__button">
-                <a href="#" className={tableClass} onClick={() => setView('table')}>{i18next.t('table_view')}</a>
+                <a href="#" className={tableClass} onClick={(e) => setView(e, 'table')}>{i18next.t('table_view')}</a>
             </div>
             <div className="viewpanel__button">
-                <a href="#" className={previewClass} onClick={() => setView('preview')}>{i18next.t('preview_view')}</a>
+                <a href="#" className={previewClass} onClick={(e) => setView(e, 'preview')}>{i18next.t('preview_view')}</a>
             </div>
         </div>
     </div>

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import i18next from 'i18next';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { setView } from '../../actions/view';
 import { setSortBy, setSortDir }  from '../../actions/sort';
 import { itemsFetchDataSuccess }  from '../../actions/users';
+import setUrlHistory from '../history';
 
 const setButtonClass = (key, value) => {
     return classNames(
@@ -18,7 +20,8 @@ class Sortpanel extends Component {
     constructor(props) {
         super(props);
     }
-    sortBy(type) {
+    sortBy(e, type) {
+        e.preventDefault();
         const { setSortByAction, setSortUsers } = this.props;
         const { users, sortDir } = this.props;
         let sortBy = type;
@@ -26,8 +29,10 @@ class Sortpanel extends Component {
         const sorted = this.sort(users, sortBy, sortDir);
         setSortUsers(sorted);
         setSortByAction(sortBy);
+        setUrlHistory({name:'sort_by', value:sortBy});
     }
-    sortDir(type) {
+    sortDir(e, type) {
+        e.preventDefault();
         const { setSortDirAction, setSortUsers } = this.props;
         const { users, sortBy } = this.props;
         let sortDir = type;
@@ -35,6 +40,7 @@ class Sortpanel extends Component {
         const sorted = this.sort(users, sortBy, sortDir);
         setSortUsers(sorted);
         setSortDirAction(sortDir);
+        setUrlHistory({name:'sort_dir', value:sortDir});
     }
     sort(users, sortBy, sortDir) {
         const { setSortUsers } = this.props;
@@ -54,21 +60,21 @@ class Sortpanel extends Component {
                 </div>
                 <div className="sortpanel__buttons">
                     <div className="sortpanel__button">
-                        <a href="#" className={setButtonClass(sortBy, 'id')} onClick={() => this.sortBy('id')}>ID</a>
+                        <a href="#" className={setButtonClass(sortBy, 'id')} onClick={(e) => this.sortBy(e, 'id')}>ID</a>
                     </div>
                     <div className="sortpanel__button">
-                        <a href="#" className={setButtonClass(sortBy, 'name')} onClick={() => this.sortBy('name')}>{i18next.t('sort_by_name')}</a>
+                        <a href="#" className={setButtonClass(sortBy, 'name')} onClick={(e) => this.sortBy(e, 'name')}>{i18next.t('sort_by_name')}</a>
                     </div>
                     <div className="sortpanel__button">
-                        <a href="#" className={setButtonClass(sortBy, 'age')} onClick={() => this.sortBy('age')}>{i18next.t('sort_by_age')}</a>
+                        <a href="#" className={setButtonClass(sortBy, 'age')} onClick={(e) => this.sortBy(e, 'age')}>{i18next.t('sort_by_age')}</a>
                     </div>
                 </div>
                 <div className="sortpanel__directions">
                     <div className="sortpanel__direction">
-                        <a href="#" className={setButtonClass(sortDir, 'asc')} onClick={() => this.sortDir('asc')}>{i18next.t('sort_dir_asc')}</a>
+                        <a href="#" className={setButtonClass(sortDir, 'asc')} onClick={(e) => this.sortDir(e, 'asc')}>{i18next.t('sort_dir_asc')}</a>
                     </div>
                     <div className="sortpanel__direction">
-                        <a href="#" className={setButtonClass(sortDir, 'desc')} onClick={() => this.sortDir('desc')}>{i18next.t('sort_dir_desc')}</a>
+                        <a href="#" className={setButtonClass(sortDir, 'desc')} onClick={(e) => this.sortDir(e, 'desc')}>{i18next.t('sort_dir_desc')}</a>
                     </div>
                 </div>
             </div>
