@@ -223,6 +223,33 @@ body {
         font-size: 12px;
     }
 }
+.userlist-container{
+    height: 600px;
+}
+.userlist-item{
+    width: 100%;
+    &--hidden{
+        display: none;
+    }
+}
+.userlist-item.enter{
+    animation: userlist 800ms ease-in alternate-reverse;
+}
+
+@keyframes userlist {
+    0% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    30% {
+        opacity: 0.7;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+}
 
 .user-row{
     display: flex;

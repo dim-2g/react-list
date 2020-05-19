@@ -14,6 +14,14 @@ export function toggleFavourite(userId) {
     };
 }
 
+export function setVisibleUsers(count) {
+    console.log('visibility set');
+    return {
+        type: types.users.VISIBLE_COUNT,
+        payload: count
+    };
+}
+
 export function usersVisualSuccess(users) {
     return {
         type: types.users.USERS_VISUAL,

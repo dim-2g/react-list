@@ -1,13 +1,14 @@
 export const lang = {
     SET_RU: 'language/set/ru',
     SET_EN: 'language/set/en',
-    SET: 'language/set'    
+    SET: 'language/set'
 };
 
 export const users = {
     ITEMS_FETCH_DATA_SUCCESS: 'users/fetch/success',
     TOGGLE_FAVOURITE: 'users/favourite/toggle',
-    USERS_VISUAL: 'users/init'
+    USERS_VISUAL: 'users/init',
+    VISIBLE_COUNT: 'users/visible/count'
 };
 
 export const view = {

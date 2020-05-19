@@ -11,4 +11,5 @@ export default {
     sortDir: "asc",
     view: "table",
     term: "",
+    visibleElements: 15,
 };

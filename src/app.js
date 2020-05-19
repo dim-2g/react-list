@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import parseLinkHeader from 'parse-link-header';
-import orderBy from 'lodash/orderBy';
 import uuid from 'uuid';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
+
 import { itemsFetchData } from './actions/users';
 import { setLang } from './actions/lang';
 import { itemsFetchDataSuccess }  from './actions/users';
@@ -36,7 +35,7 @@ class App extends Component {
     constructor(props) {
         super(props);
     }
-    
+
     static propTypes = {
         children: PropTypes.node,
     };
@@ -49,7 +48,7 @@ class App extends Component {
         //обрабатываем адресную строку для инициализации нужного фильтра
         this.urlToProps();
     }
-    
+
     componentDidCatch(err, info) {
         console.error(err);
         console.error(info);
@@ -59,7 +58,7 @@ class App extends Component {
     }
     getUrlParam = function(name) {
         return new URLSearchParams(window.location.search).get(name);
-    }
+    };
     urlToProps = function() {
         let sortBy = this.getUrlParam('sort_by');
         if (sortBy) {
@@ -77,7 +76,7 @@ class App extends Component {
         if (view) {
             this.props.setViewAction(view);
         }
-    }
+    };
     setLanguage(language) {
         let langResources = ruLocale;
         switch (language) {
@@ -164,8 +163,7 @@ const mapDispatchToProps = (dispatch) => {
         updateUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
         setTermAction: (term) => dispatch(setTerm(term)),
         setSortByAction: (key) => dispatch(setSortBy(key)),
-        setSortDirAction: (key) => dispatch(setSortDir(key)),
-        setViewAction: (view) => dispatch(setView(view))
+        setSortDirAction: (key) => dispatch(setSortDir(key))
     };
 };
 
