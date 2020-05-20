@@ -8,7 +8,12 @@ export const SearchBar = (props) => {
     }
     return (
     <div className="searchbar">
-        <input type="text" onChange={(e) => search(e)} placeholder={i18next.t('search_placeholder')}/>
+        <input
+            type="text"
+            onChange={(e) => search(e)}
+            placeholder={i18next.t('search_placeholder')}
+            value={props.term}
+        />
     </div>
 )};
 

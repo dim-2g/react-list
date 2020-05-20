@@ -201,10 +201,22 @@ body {
     &__item-row{
         padding: 0 8px;
         width: 100%;
+        //opacity: 0;
+        //transform: translateY(50px);
+
+        //animation: userlist 800ms ease-in alternate-reverse;
         + .userlist__item-row{
             .user-row{
                 border-top: 1px solid #cecece;
             }
+        }
+        &.enter-active{
+            //animation: userlist 800ms ease-in alternate-reverse;
+        }
+        &.enter-done{
+//            transition: all 0.4s ease;
+            opacity: 1;
+            //transform: translateY(0);
         }
     }
     &__item{
@@ -232,8 +244,8 @@ body {
         display: none;
     }
 }
-.userlist-item.enter{
-    animation: userlist 800ms ease-in alternate-reverse;
+.userlist-item.enter-done{
+    //animation: userlist 800ms ease-in alternate-reverse;
 }
 
 @keyframes userlist {

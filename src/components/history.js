@@ -3,7 +3,11 @@ import { browserHistory } from 'react-router';
 const setUrlHistory = (obj) => {
     let url = new URL(window.location.href);
     const {name, value} = obj;
-    url.searchParams.set(name, value);
+    if (value) {
+        url.searchParams.set(name, value);
+    } else {
+        url.searchParams.delete(name);
+    }
     browserHistory.push(url);
 }
 

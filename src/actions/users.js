@@ -22,6 +22,14 @@ export function setVisibleUsers(count) {
     };
 }
 
+export function setLastVisibleUsers(count) {
+    console.log('visibility set last');
+    return {
+        type: types.users.LAST_VISIBLE_COUNT,
+        payload: count
+    };
+}
+
 export function usersVisualSuccess(users) {
     return {
         type: types.users.USERS_VISUAL,

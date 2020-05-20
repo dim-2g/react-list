@@ -9,3 +9,12 @@ export function visibleElements(state = initialState.visibleElements, action) {
             return state;
     }
 }
+
+export function lastVisible(state = initialState.lastVisible, action) {
+    switch (action.type) {
+        case types.users.LAST_VISIBLE_COUNT:
+            return action.payload;
+        default:
+            return state;
+    }
+}

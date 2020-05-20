@@ -1,7 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import i18next from 'i18next';
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
+import { InView } from 'react-intersection-observer'
+
+import VideoPlayer from './videopleer';
 
 export const UserListPreview = (props) => {
     const { user } = props;
@@ -27,14 +30,9 @@ export const UserListPreview = (props) => {
                     <div className="user-preview__phone">{user.phone}</div>
                     <div className="user-preview__phrase">{user.phrase}</div>
                 </div>
-                {user.video && 
+                {user.video &&
                     <div className="user-preview__video">
-                        <ReactPlayer 
-                            url={`/static/videos/${user.video}.mp4`} 
-                            playing  
-                            width="100%"
-                            height="250px"
-                        />
+                        <VideoPlayer video={user.video} />
                     </div>
                 }
             </div>

@@ -3,14 +3,15 @@ import classNames from 'classnames';
 import i18next from 'i18next';
 
 export const UserListTable = (props) => {
-    const { user } = props;
+    const { user, delay } = props;
     const { onToggleFavourite } = props;
     const userAvatar = `/static/images/${user.image}.svg`;
     const favouriteClass = classNames({' active':user.favourite});
     //i18next.t('favourite_add')
     const favouriteTitle = user.favourite ? i18next.t('favourite_remove') : i18next.t('favourite_add');
+    console.log('trans', delay);
     return (
-        <div className="userlist__item-row" key={user.id}> 
+        <div className="userlist__item-row" >
             <div className="user-row">
                 <div className="user-row__image">
                     <img src={userAvatar} />
@@ -24,4 +25,8 @@ export const UserListTable = (props) => {
 )};
 
 export default UserListTable;
+
+/*
+style={{transitionDelay: `${delay}ms`}}
+ */
 

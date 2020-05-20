@@ -8,7 +8,8 @@ export const users = {
     ITEMS_FETCH_DATA_SUCCESS: 'users/fetch/success',
     TOGGLE_FAVOURITE: 'users/favourite/toggle',
     USERS_VISUAL: 'users/init',
-    VISIBLE_COUNT: 'users/visible/count'
+    VISIBLE_COUNT: 'users/visible/count',
+    LAST_VISIBLE_COUNT: 'users/visible/count/last',
 };
 
 export const view = {

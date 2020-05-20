@@ -18,6 +18,7 @@ import Controls from './components/controls/controls';
 import Langpanel from './components/controls/langpanel';
 import UserList from './components/userlist/userlist';
 import SearchBar from './components/searchbar/searchbar';
+import setUrlHistory from './components/history';
 import Loader from './components/Loader';
 import * as ruLocale from './lang/ru.json';
 import * as enLocale from './lang/en.json';
@@ -89,45 +90,19 @@ class App extends Component {
         });
         this.props.setLangAction(language);
     }
-
-    getPosts() {
-        return [];
-    }
-    getWorkers() {
-        fetch(this.state.workersEndpoint)
-            .then(response => response.json())
-            .then(users => {
-                this.setState(() => ({users: users}))
-            })
-            .catch(error => {
-                this.setState(() => ({ error: error }));
-            });
-    }
-    deleteUser() {
-        let newUsers = [...this.state.users];
-        console.log(newUsers);
-        newUsers.splice(0, 1);
-        this.setState(() => ({users: newUsers}));
-    }
-    addUser() {
-        let user = {
-            id: uuid(),
-            name: "Димон",
-            age: 34
-        };
-        let newUsers = [...this.state.users];
-        newUsers.splice(0, 0, user);
-        console.log(newUsers);
-        this.setState(() => ({users: newUsers}));
+    setTerm(term) {
+        console.log('term', term);
+        this.props.setTermAction(term);
+        setUrlHistory({name:'term', value:term});
     }
     render() {
-        const { lang, setTermAction } = this.props;
+        const { lang, setTermAction, term } = this.props;
         return (
             <div className="app">
                 <div className="container">
                     <Langpanel lang={lang} changeLang={this.setLanguage.bind(this)} />
                     <Controls />
-                    <SearchBar onChange={setTermAction} />
+                    <SearchBar onChange={(term) => this.setTerm(term)} term={term}/>
                     <UserList />
                 </div>
             </div>
@@ -143,15 +118,14 @@ className="todo-list"
 */
 
 export const mapStateToProps = state => {
-    //console.log('state');
-    //console.log(state);
     return {
         error: state.error,
         loading: state.loading,
         users: state.users,
         //users: state.users,
         sortBy: state.sortBy,
-        lang: state.lang
+        lang: state.lang,
+        term: state.term
     };
 };
 

@@ -12,4 +12,5 @@ export default {
     view: "table",
     term: "",
     visibleElements: 15,
+    lastVisible: 0,
 };
