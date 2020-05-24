@@ -201,10 +201,6 @@ body {
     &__item-row{
         padding: 0 8px;
         width: 100%;
-        //opacity: 0;
-        //transform: translateY(50px);
-
-        //animation: userlist 800ms ease-in alternate-reverse;
         + .userlist__item-row{
             .user-row{
                 border-top: 1px solid #cecece;
@@ -212,19 +208,12 @@ body {
         }
         &.enter{
             opacity: 0;
-            transform: translateY(100px);
         }
         &.enter-active{
-            //animation: userlist 800ms ease-in alternate-reverse;
-            transition: all 0.7s ease-in;
-            opacity: 1;
-            transform: translateY(0);
+            animation: userlist 700ms ease-in alternate-reverse;
         }
         &.enter-done{
-            transition-delay: 0s !important;
-//            transition: all 0.4s ease;
-            //opacity: 1;
-            //transform: translateY(0);
+            opacity: 1;
         }
     }
     &__item{
@@ -234,6 +223,18 @@ body {
         &--video{
             width: 100%;
         }
+        &.enter{
+            opacity: 0;
+            transition: 0s;
+        }
+        &.enter-active{
+            animation: userlist 700ms ease-in alternate-reverse;
+        }
+        &.enter-done{
+            transition: 0s;
+            opacity: 1;
+        }
+
     }
     &__no-result{
         text-align: center;
@@ -262,8 +263,8 @@ body {
         transform: translateX(0px);
     }
     30% {
-        opacity: 0.7;
-        transform: translateX(30px);
+        opacity: 0.3;
+        transform: translateX(15px);
     }
     100% {
         opacity: 0;
@@ -280,7 +281,7 @@ body {
     padding: 15px 9px;
     box-shadow: 0 12px 9px -6px #cecece;
     position: relative;
-    transition: $cubic;
+    //transition: $cubic;
     &:hover{
         background-color: #eaeaea;
     }

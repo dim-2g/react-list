@@ -7,7 +7,7 @@ import { InView } from 'react-intersection-observer'
 import VideoPlayer from './videopleer';
 
 export const UserListPreview = (props) => {
-    const { user } = props;
+    const { user, animationClass } = props;
     const { onToggleFavourite } = props;
     const userAvatar = `/static/images/${user.image}.svg`;
     const favouriteClass = classNames(
@@ -16,7 +16,7 @@ export const UserListPreview = (props) => {
     );
     const videoClass = user.video ? ' userlist__item--video' : '';
     return (
-        <div className={`userlist__item${videoClass}`} key={user.id}>
+        <div className={`userlist__item${videoClass} ${animationClass}`} key={user.id}>
             <div className="user-preview">
                 <div className="user-preview__info">
                     <div className="user-preview__top">
