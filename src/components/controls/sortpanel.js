@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 
 import { setView } from '../../actions/view';
 import { setSortBy, setSortDir }  from '../../actions/sort';
-import { itemsFetchDataSuccess }  from '../../actions/users';
+import { itemsFetchDataSuccess, initVisibleUsers, initTrackedHeight }  from '../../actions/users';
 import setUrlHistory from '../history';
 
 const setButtonClass = (key, value) => {
@@ -22,7 +22,7 @@ class Sortpanel extends Component {
     }
     sortBy(e, type) {
         e.preventDefault();
-        const { setSortByAction, setSortUsers } = this.props;
+        const { setSortByAction, setSortUsers, setVisibleUsersAction, initTrackedHeightAction } = this.props;
         const { users, sortDir } = this.props;
         let sortBy = type;
 
@@ -30,10 +30,12 @@ class Sortpanel extends Component {
         setSortUsers(sorted);
         setSortByAction(sortBy);
         setUrlHistory({name:'sort_by', value:sortBy});
+        setVisibleUsersAction();
+        initTrackedHeightAction();
     }
     sortDir(e, type) {
         e.preventDefault();
-        const { setSortDirAction, setSortUsers } = this.props;
+        const { setSortDirAction, setSortUsers, setVisibleUsersAction, initTrackedHeightAction } = this.props;
         const { users, sortBy } = this.props;
         let sortDir = type;
 
@@ -41,6 +43,8 @@ class Sortpanel extends Component {
         setSortUsers(sorted);
         setSortDirAction(sortDir);
         setUrlHistory({name:'sort_dir', value:sortDir});
+        setVisibleUsersAction();
+        initTrackedHeightAction();
     }
     sort(users, sortBy, sortDir) {
         const { setSortUsers } = this.props;
@@ -97,7 +101,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setSortByAction: (key) => dispatch(setSortBy(key)),
         setSortDirAction: (key) => dispatch(setSortDir(key)),
-        setSortUsers: (users) => dispatch(itemsFetchDataSuccess(users))
+        setSortUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
+        setVisibleUsersAction: () => dispatch(initVisibleUsers()),
+        initTrackedHeightAction: () => dispatch(initTrackedHeight())
     };
 };
 

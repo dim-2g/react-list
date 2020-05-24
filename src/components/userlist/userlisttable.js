@@ -9,9 +9,13 @@ export const UserListTable = (props) => {
     const favouriteClass = classNames({' active':user.favourite});
     //i18next.t('favourite_add')
     const favouriteTitle = user.favourite ? i18next.t('favourite_remove') : i18next.t('favourite_add');
-    console.log('trans', delay);
+    //console.log('trans', delay);
+    let itemStyle = {};
+    if (delay > 0) {
+        itemStyle = {transitionDelay: `${delay}ms`};
+    }
     return (
-        <div className="userlist__item-row" >
+        <div className="userlist__item-row" style={itemStyle}>
             <div className="user-row">
                 <div className="user-row__image">
                     <img src={userAvatar} />

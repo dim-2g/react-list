@@ -13,4 +13,5 @@ export default {
     term: "",
     visibleElements: 15,
     lastVisible: 0,
+    trackedHeight: 0
 };

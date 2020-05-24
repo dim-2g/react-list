@@ -210,12 +210,20 @@ body {
                 border-top: 1px solid #cecece;
             }
         }
+        &.enter{
+            opacity: 0;
+            transform: translateY(100px);
+        }
         &.enter-active{
             //animation: userlist 800ms ease-in alternate-reverse;
+            transition: all 0.7s ease-in;
+            opacity: 1;
+            transform: translateY(0);
         }
         &.enter-done{
+            transition-delay: 0s !important;
 //            transition: all 0.4s ease;
-            opacity: 1;
+            //opacity: 1;
             //transform: translateY(0);
         }
     }

@@ -10,6 +10,9 @@ export const users = {
     USERS_VISUAL: 'users/init',
     VISIBLE_COUNT: 'users/visible/count',
     LAST_VISIBLE_COUNT: 'users/visible/count/last',
+    INIT_VISIBLE_COUNT: 'users/visible/count/init',
+    SET_TRACKED_HEIGHT: 'users/tracked/height/set',
+    REINIT_TRACKED_HEIGHT: 'users/tracked/height/reinit'
 };
 
 export const view = {

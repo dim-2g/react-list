@@ -22,6 +22,28 @@ export function setVisibleUsers(count) {
     };
 }
 
+export function initVisibleUsers() {
+    console.log('visibility init');
+    return {
+        type: types.users.INIT_VISIBLE_COUNT,
+    };
+}
+
+export function setTrackedHeight(count) {
+    console.log('initTrackedHeight');
+    return {
+        type: types.users.SET_TRACKED_HEIGHT,
+        payload: count
+    };
+}
+
+export function initTrackedHeight() {
+    console.log('initTrackedHeight');
+    return {
+        type: types.users.REINIT_TRACKED_HEIGHT,
+    };
+}
+
 export function setLastVisibleUsers(count) {
     console.log('visibility set last');
     return {

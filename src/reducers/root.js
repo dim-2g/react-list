@@ -6,7 +6,7 @@ import { view } from './view';
 import { sortBy, sortDir } from './sort';
 //import { usersVisual } from './usersvisual';
 import { term } from './term';
-import { visibleElements, lastVisible } from './visibleusers';
+import { visibleElements, lastVisible, trackedHeight } from './visibleusers';
 
 const rootReducer = combineReducers({
     lang,
@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
     sortDir,
     term,
     visibleElements,
-    lastVisible
+    lastVisible,
+    trackedHeight
 });
 
 export default rootReducer;
