@@ -13,10 +13,15 @@
             "table_view":"Таблица",
             "preview_view":"Превью",
             "years_old":"лет",
+            "years_old_0":"год",
+            "years_old_1":"года",
+            "years_old_2":"лет",
             "favourite_add":"Добавить в избранное",
             "favourite_remove":"Убрать из избранного",
             "search_no_result":"Нет подходящих результатов",
-            "search_placeholder":"Введите имя для фильтрации"
+            "search_placeholder":"Введите имя для фильтрации",
+            "video_stop": "Отключить автовоспроизведение",
+            "video_start": "Включить автовоспроизведение"
         }
     }
 }

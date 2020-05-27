@@ -12,7 +12,8 @@ export const users = {
     LAST_VISIBLE_COUNT: 'users/visible/count/last',
     INIT_VISIBLE_COUNT: 'users/visible/count/init',
     SET_TRACKED_HEIGHT: 'users/tracked/height/set',
-    REINIT_TRACKED_HEIGHT: 'users/tracked/height/reinit'
+    REINIT_TRACKED_HEIGHT: 'users/tracked/height/reinit',
+    SET_NEXT: 'users/set/next',
 };
 
 export const view = {
@@ -27,3 +28,19 @@ export const sort = {
 export const term = {
     SET: 'term/set'
 };
+
+export const video = {
+    INIT: 'video/init',
+    SET: 'video/play/set',
+    SET_COUNT_PLAYING: 'video/play/count',
+    STATUS: 'video/play/status',
+    NOW: 'video/play/now'
+};
+
+export const loading = {
+    SET: 'loading/set'
+};
+
+export const animating = {
+    USERS: 'animating/users'
+}

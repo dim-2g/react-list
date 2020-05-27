@@ -3,7 +3,7 @@ import i18next from 'i18next';
 
 export const SearchBar = (props) => {
     const search = e => {
-        const searchText = e.target.value.toLowerCase().trim();
+        const searchText = e.target.value.toLowerCase();
         props.onChange(searchText);
     }
     return (

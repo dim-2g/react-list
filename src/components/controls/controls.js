@@ -5,10 +5,11 @@ import Sortpanel from './sortpanel';
 import Viewpanel from './viewpanel';
 import { setView } from '../../actions/view';
 import { setSortBy, setSortDir }  from '../../actions/sort';
+import { initVisibleUsers } from "../../actions/users";
 
 export const Controls = (props) => {
-    const { view, lang, sortBy, sortDir, users } = props;
-    const { setViewAction, setSortByAction, setSortDirAction } = props;
+    const { view, lang } = props;
+    const { setViewAction, reinitVisibleUsersAction } = props;
     return (
     <div className="controls">
         <div className="controls__grid">
@@ -16,7 +17,7 @@ export const Controls = (props) => {
                 <Sortpanel />
             </div>
             <div className="controls__view">
-                <Viewpanel lang={lang} view={view} setView={setViewAction} />
+                <Viewpanel lang={lang} view={view} setView={setViewAction} reinitVisibleUsers={reinitVisibleUsersAction}/>
             </div>
         </div>
     </div>
@@ -38,7 +39,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setViewAction: (view) => dispatch(setView(view)),
         setSortByAction: (key) => dispatch(setSortBy(key)),
-        setSortDirAction: (key) => dispatch(setSortDir(key))
+        setSortDirAction: (key) => dispatch(setSortDir(key)),
+        reinitVisibleUsersAction: () => dispatch(initVisibleUsers())
     };
 };
 

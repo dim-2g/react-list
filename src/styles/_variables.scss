@@ -1,4 +1,8 @@
 // colors
+$brand-color: #55acee;
+$brand-color-hover: darken(#55acee, 15%);
+$brand-color-light: lighten(#55acee, 25%);
+
 $blue: #4267b2;
 $white: #fff;
 $bg-default: #e9ebee;
@@ -8,17 +12,14 @@ $navbar-height: 40px;
 
 $border-radius: 7px 7px;
 
+
 $gray-darker: lighten($gray-base, 13.5%) !default; // #222
 $gray-dark: lighten($gray-base, 20%) !default; // #333
 $gray: lighten($gray-base, 33.5%) !default; // #555
 $gray-light: lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary: darken(#428bca, 6.5%) !default; // #337ab7
-$brand-success: #5cb85c !default;
-$brand-info: #5bc0de !default;
-$brand-warning: #f0ad4e !default;
-$brand-danger: #d9534f !default;
+
 
 // animation
 $cubic: all 0.5s cubic-bezier(0.3, 0, 0.2, 1);

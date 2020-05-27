@@ -1,4 +1,5 @@
 import * as types from '../constants/types';
+import { itemsIsLoading } from '../actions/loading';
 
 export function itemsFetchDataSuccess(users) {
     return {
@@ -29,21 +30,6 @@ export function initVisibleUsers() {
     };
 }
 
-export function setTrackedHeight(count) {
-    console.log('initTrackedHeight');
-    return {
-        type: types.users.SET_TRACKED_HEIGHT,
-        payload: count
-    };
-}
-
-export function initTrackedHeight() {
-    console.log('initTrackedHeight');
-    return {
-        type: types.users.REINIT_TRACKED_HEIGHT,
-    };
-}
-
 export function setLastVisibleUsers(count) {
     console.log('visibility set last');
     return {
@@ -52,32 +38,30 @@ export function setLastVisibleUsers(count) {
     };
 }
 
-export function usersVisualSuccess(users) {
+export function nextUsers(incrementVisibleUsers, lastVisibleUsers) {
+    console.log('incrementVisibleUsers', incrementVisibleUsers);
+    console.log('lastVisibleUsers', lastVisibleUsers);
     return {
-        type: types.users.USERS_VISUAL,
-        users
+        type: types.users.SET_NEXT,
+        incrementVisibleUsers,
+        lastVisibleUsers
     };
 }
 
 export function itemsFetchData(url) {
-    console.log('action itemsFetchData');
     return (dispatch) => {
-        //dispatch(itemsIsLoading(true));
-
+        dispatch(itemsIsLoading(true));
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
-
-                //dispatch(itemsIsLoading(false));
-
+                dispatch(itemsIsLoading(false));
                 return response;
             })
             .then((response) => response.json())
             .then((items) => {
                 dispatch(itemsFetchDataSuccess(items))
-                //dispatch(usersVisualSuccess(items))
             })
             .catch(() => console.log('error')/*dispatch(itemsHasErrored(true))*/);
     };

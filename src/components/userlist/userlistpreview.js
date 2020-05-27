@@ -12,7 +12,7 @@ export const UserListPreview = (props) => {
     const userAvatar = `/static/images/${user.image}.svg`;
     const favouriteClass = classNames(
         'user-preview__favourite',
-        {'active':user.favourite}
+        {'active':!user.favourite}
     );
     const videoClass = user.video ? ' userlist__item--video' : '';
     return (
@@ -26,13 +26,13 @@ export const UserListPreview = (props) => {
                         <div className="user-preview__name">{user.name}</div>
                         <div className={favouriteClass} onClick={() => onToggleFavourite(user.id)}><i className="fa fa-star"></i></div>
                     </div>
-                    <div className="user-preview__age">{user.age} {i18next.t('years_old')}</div>
+                    <div className="user-preview__age">{user.age} {i18next.t('years_old', {count: user.age})}</div>
                     <div className="user-preview__phone">{user.phone}</div>
                     <div className="user-preview__phrase">{user.phrase}</div>
                 </div>
                 {user.video &&
                     <div className="user-preview__video">
-                        <VideoPlayer video={user.video} />
+                        <VideoPlayer video={user.video} id={user.id} />
                     </div>
                 }
             </div>

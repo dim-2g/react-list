@@ -13,10 +13,15 @@
             "table_view":"Table",
             "preview_view":"Preview",
             "years_old":"years",
+            "years_old_0":"year",
+            "years_old_1":"years",
+            "years_old_2":"years",
             "favourite_add":"Add to favourite",
             "favourite_remove":"Remove from favourite",
             "search_no_result":"No matching results",
-            "search_placeholder":"Enter Name to filter"
+            "search_placeholder":"Enter Name to filter",
+            "video_stop": "Disable autoplay",
+            "video_start": "Enable autoplay"
         }
     }
 }

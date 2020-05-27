@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
-import i18next from 'i18next';
 import UserListPreview from "./userlistpreview";
 import UserListTable from "./userlisttable";
 
@@ -14,16 +12,16 @@ class Item extends Component{
     componentDidMount() {
         const { delay } = this.props;
         this.setState({
-            animationClass: 'enter'
+            animationClass: 'animation-start enter'
         });
         setTimeout(() => {
             this.setState({
-                animationClass: 'enter-active',
+                animationClass: 'animated enter-active',
             })
         }, delay);
         setTimeout(() => {
             this.setState({
-                animationClass: 'enter-done',
+                animationClass: 'animated enter-done',
             })
         }, delay + 1400);
     }
@@ -31,12 +29,13 @@ class Item extends Component{
         const { animationClass } = this.state;
         const { view, user, delay } = this.props;
         const { toggleFavouriteAction } = this.props;
-        if (view == 'table') {
-            return (<UserListTable user={user} onToggleFavourite={toggleFavouriteAction} delay={delay} animationClass={animationClass} />)
-        }
-        if (view == 'preview') {
-            return (<UserListPreview user={user} onToggleFavourite={toggleFavouriteAction}  delay={delay} animationClass={animationClass} />)
-        }
+        const RenderComponent = (view == 'table') ? UserListTable : UserListPreview;
+        return <RenderComponent
+                    user={user}
+                    onToggleFavourite={toggleFavouriteAction}
+                    delay={delay}
+                    animationClass={animationClass}
+                />
     }
 };
 

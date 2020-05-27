@@ -6,19 +6,22 @@ import { view } from './view';
 import { sortBy, sortDir } from './sort';
 //import { usersVisual } from './usersvisual';
 import { term } from './term';
-import { visibleElements, lastVisible, trackedHeight } from './visibleusers';
+import { visibleElements, lastVisible } from './visibleusers';
+import { canAllVideoPlaying, nowPlayVideo } from './playingvideo';
+import { loading } from './loading';
 
 const rootReducer = combineReducers({
     lang,
     users,
-    //usersVisual,
     view,
     sortBy,
     sortDir,
     term,
     visibleElements,
     lastVisible,
-    trackedHeight
+    canAllVideoPlaying,
+    nowPlayVideo,
+    loading,
 });
 
 export default rootReducer;

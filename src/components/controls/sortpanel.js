@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import i18next from 'i18next';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import Tap from 'react-interactions'
 
-import { setView } from '../../actions/view';
 import { setSortBy, setSortDir }  from '../../actions/sort';
 import { itemsFetchDataSuccess, initVisibleUsers, initTrackedHeight }  from '../../actions/users';
 import setUrlHistory from '../history';
+import {setNowVideoPlay} from "../../actions/video";
 
 const setButtonClass = (key, value) => {
     return classNames(
@@ -22,7 +22,7 @@ class Sortpanel extends Component {
     }
     sortBy(e, type) {
         e.preventDefault();
-        const { setSortByAction, setSortUsers, setVisibleUsersAction, initTrackedHeightAction } = this.props;
+        const { setSortByAction, setSortUsers, reinitVisibleUsersAction, setNowVideoPlayAction } = this.props;
         const { users, sortDir } = this.props;
         let sortBy = type;
 
@@ -30,12 +30,12 @@ class Sortpanel extends Component {
         setSortUsers(sorted);
         setSortByAction(sortBy);
         setUrlHistory({name:'sort_by', value:sortBy});
-        setVisibleUsersAction();
-        initTrackedHeightAction();
+        reinitVisibleUsersAction();
+        setNowVideoPlayAction(null);
     }
     sortDir(e, type) {
         e.preventDefault();
-        const { setSortDirAction, setSortUsers, setVisibleUsersAction, initTrackedHeightAction } = this.props;
+        const { setSortDirAction, setSortUsers, reinitVisibleUsersAction, setNowVideoPlayAction } = this.props;
         const { users, sortBy } = this.props;
         let sortDir = type;
 
@@ -43,11 +43,10 @@ class Sortpanel extends Component {
         setSortUsers(sorted);
         setSortDirAction(sortDir);
         setUrlHistory({name:'sort_dir', value:sortDir});
-        setVisibleUsersAction();
-        initTrackedHeightAction();
+        reinitVisibleUsersAction();
+        setNowVideoPlayAction(null);
     }
     sort(users, sortBy, sortDir) {
-        const { setSortUsers } = this.props;
         let direction = (sortDir == 'asc') ? 1 : -1;
         const sorted = [].slice.call(users).sort((a, b) => {
             if (a[sortBy] === b[sortBy]) { return 0; }
@@ -64,21 +63,36 @@ class Sortpanel extends Component {
                 </div>
                 <div className="sortpanel__buttons">
                     <div className="sortpanel__button">
-                        <a href="#" className={setButtonClass(sortBy, 'id')} onClick={(e) => this.sortBy(e, 'id')}>ID</a>
+                        <button className={setButtonClass(sortBy, 'id')} onClick={(e) => this.sortBy(e, 'id')}>
+                            ID
+                            <Tap scale fade waves />
+                        </button>
                     </div>
                     <div className="sortpanel__button">
-                        <a href="#" className={setButtonClass(sortBy, 'name')} onClick={(e) => this.sortBy(e, 'name')}>{i18next.t('sort_by_name')}</a>
+                        <button className={setButtonClass(sortBy, 'name')} onClick={(e) => this.sortBy(e, 'name')}>
+                            {i18next.t('sort_by_name')}
+                            <Tap scale fade waves />
+                        </button>
                     </div>
                     <div className="sortpanel__button">
-                        <a href="#" className={setButtonClass(sortBy, 'age')} onClick={(e) => this.sortBy(e, 'age')}>{i18next.t('sort_by_age')}</a>
+                        <button className={setButtonClass(sortBy, 'age')} onClick={(e) => this.sortBy(e, 'age')}>
+                            {i18next.t('sort_by_age')}
+                            <Tap scale fade waves />
+                        </button>
                     </div>
                 </div>
                 <div className="sortpanel__directions">
                     <div className="sortpanel__direction">
-                        <a href="#" className={setButtonClass(sortDir, 'asc')} onClick={(e) => this.sortDir(e, 'asc')}>{i18next.t('sort_dir_asc')}</a>
+                        <button className={setButtonClass(sortDir, 'asc')} onClick={(e) => this.sortDir(e, 'asc')}>
+                            {i18next.t('sort_dir_asc')}
+                            <Tap scale fade waves />
+                        </button>
                     </div>
                     <div className="sortpanel__direction">
-                        <a href="#" className={setButtonClass(sortDir, 'desc')} onClick={(e) => this.sortDir(e, 'desc')}>{i18next.t('sort_dir_desc')}</a>
+                        <button className={setButtonClass(sortDir, 'desc')} onClick={(e) => this.sortDir(e, 'desc')}>
+                            {i18next.t('sort_dir_desc')}
+                            <Tap scale fade waves />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -102,8 +116,8 @@ const mapDispatchToProps = (dispatch) => {
         setSortByAction: (key) => dispatch(setSortBy(key)),
         setSortDirAction: (key) => dispatch(setSortDir(key)),
         setSortUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
-        setVisibleUsersAction: () => dispatch(initVisibleUsers()),
-        initTrackedHeightAction: () => dispatch(initTrackedHeight())
+        reinitVisibleUsersAction: () => dispatch(initVisibleUsers()),
+        setNowVideoPlayAction: (id) => dispatch(setNowVideoPlay(id))
     };
 };
 

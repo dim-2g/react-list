@@ -1,4 +1,5 @@
 import React from 'react';
+import Tap from 'react-interactions'
 
 export const Langpanel = (props) => {
     const changeLang = function(e, lang) {
@@ -9,10 +10,16 @@ export const Langpanel = (props) => {
     <div className="langpanel">
         <div className="langpanel__buttons">
             <div className="langpanel__button">
-                <a href="#" className={props.lang==='ru' ? 'btn btn-blue' : 'btn btn-primary'} onClick={(e) => changeLang(e, 'ru')}>РУ</a>
+                <button className={props.lang==='ru' ? 'btn btn-blue' : 'btn btn-primary'} onClick={(e) => changeLang(e, 'ru')}>
+                    РУ
+                    <Tap scale fade waves />
+                </button>
             </div>
             <div className="langpanel__button">
-                <a href="#" className={props.lang==='en' ? 'btn btn-blue' : 'btn btn-primary'} onClick={(e) => changeLang(e, 'en')}>ENG</a>
+                <button className={props.lang==='en' ? 'btn btn-blue' : 'btn btn-primary'} onClick={(e) => changeLang(e, 'en')}>
+                    ENG
+                    <Tap scale fade waves />
+                </button>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import i18next from 'i18next';
+import Tap from 'react-interactions'
 
 import setUrlHistory from '../history';
 
@@ -12,6 +13,7 @@ export const Viewpanel = (props) => {
     const setView = function(e, view) {
         e.preventDefault();
         props.setView(view);
+        props.reinitVisibleUsers(view);
         setUrlHistory({name:'view', value:view});
     }
     return (
@@ -21,10 +23,16 @@ export const Viewpanel = (props) => {
         </div>
         <div className="viewpanel__buttons">
             <div className="viewpanel__button">
-                <a href="#" className={tableClass} onClick={(e) => setView(e, 'table')}>{i18next.t('table_view')}</a>
+                <button className={tableClass} onClick={(e) => setView(e, 'table')}>
+                    {i18next.t('table_view')}
+                    <Tap scale fade waves />
+                </button>
             </div>
             <div className="viewpanel__button">
-                <a href="#" className={previewClass} onClick={(e) => setView(e, 'preview')}>{i18next.t('preview_view')}</a>
+                <button className={previewClass} onClick={(e) => setView(e, 'preview')}>
+                    {i18next.t('preview_view')}
+                    <Tap scale fade waves />
+                </button>
             </div>
         </div>
     </div>
