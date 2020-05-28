@@ -106,6 +106,10 @@ module.exports = {
             {
                 test: /\.ico$/,
                 use: 'file-loader?name=[name].[ext]'
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
             }
         ]
     }

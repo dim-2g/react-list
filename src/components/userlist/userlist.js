@@ -72,7 +72,6 @@ class Userlist extends Component {
                     if (index == lastVisible) {
                         indexTransition = 1;
                     }
-                    //console.log('delay: ', delay);
                     let isLast = filteredUsers.length == index + 1;
                     //уникальный ключ, учитывающий порядок вывода и какой элемент там был
                     let userKey = `${user.id}-${index}-${view}`;

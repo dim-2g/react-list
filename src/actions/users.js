@@ -17,7 +17,6 @@ export function toggleFavourite(userId) {
 }
 
 export function setVisibleUsers(count) {
-    console.log('visibility set');
     return {
         type: types.users.VISIBLE_COUNT,
         payload: count
@@ -25,14 +24,12 @@ export function setVisibleUsers(count) {
 }
 
 export function initVisibleUsers() {
-    console.log('visibility init');
     return {
         type: types.users.INIT_VISIBLE_COUNT,
     };
 }
 
 export function setLastVisibleUsers(count) {
-    console.log('visibility set last');
     return {
         type: types.users.LAST_VISIBLE_COUNT,
         payload: count
@@ -72,11 +69,5 @@ export function itemsFetchData(url) {
                 dispatch(itemsFetchDataSuccess(items))
             })
             .catch(() => console.log('error')/*dispatch(itemsHasErrored(true))*/);
-    };
-}
-
-export function setLoadingUsers() {
-    return {
-        type: types.loading.LOAD_USERS,
     };
 }

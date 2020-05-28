@@ -9,8 +9,9 @@ import { setNewSort } from '../../actions/sort';
 
 const setButtonClass = (key, value) => {
     return classNames(
-        {'btn btn-blue':key==value},
-        {'btn btn-primary':key!=value}
+        'btn',
+        {'btn-blue':key==value},
+        {'btn-primary':key!=value}
     );
 }
 
@@ -20,16 +21,16 @@ class Sortpanel extends Component {
     }
     sortBy(e, type) {
         e.preventDefault();
-        const { sortDir } = this.props;
+        const { sortDir, setNewSortAction } = this.props;
         let sortBy = type;
-        this.props.setNewSortAction(sortBy, sortDir);
+        setNewSortAction(sortBy, sortDir);
         setUrlHistory({name:'sort_by', value:sortBy});
     }
     sortDir(e, type) {
         e.preventDefault();
-        const { sortBy } = this.props;
+        const { sortBy, setNewSortAction } = this.props;
         let sortDir = type;
-        this.props.setNewSortAction(sortBy, sortDir);
+        setNewSortAction(sortBy, sortDir);
         setUrlHistory({name:'sort_dir', value:sortDir});
     }
     render() {

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import ReactPlayer from "react-player";
-import { useInView } from "react-intersection-observer";
 import { connect } from 'react-redux';
 
 import { playVideo, setNowVideoPlay } from '../../actions/video';
@@ -12,9 +11,10 @@ class VideoPleer extends Component {
         this.state = {
             autoplay: false,
             canPLay: false
-        }
+        };
         this.handlePause = this.handlePause.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
     handleScroll() {
         this.changeStatusVideo();
@@ -53,11 +53,14 @@ class VideoPleer extends Component {
     }
     componentDidMount() {
         //следим за скролом
-        window.addEventListener('scroll', () => this.handleScroll(), true);
+        window.addEventListener('scroll', this.handleScroll, true);
         //то же что в скроле
         setTimeout(() => {
             this.handleScroll();
         }, 100);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, true);
     }
     handlePause() {
         //если пауза произошла в области видимости,
