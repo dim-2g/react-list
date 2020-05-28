@@ -4,6 +4,8 @@ import i18next from 'i18next';
 import Tap from 'react-interactions'
 
 import setUrlHistory from '../history';
+import PropTypes from "prop-types";
+import Langpanel from "./langpanel";
 
 export const Viewpanel = (props) => {
     const { view } = props;
@@ -37,5 +39,12 @@ export const Viewpanel = (props) => {
         </div>
     </div>
 )};
+
+Viewpanel.propTypes = {
+    lang: PropTypes.string.isRequired,
+    view: PropTypes.string.isRequired,
+    setView: PropTypes.func.isRequired,
+    reinitVisibleUsers: PropTypes.func.isRequired,
+};
 
 export default Viewpanel;

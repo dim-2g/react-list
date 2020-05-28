@@ -9,7 +9,7 @@ export const UserListTable = (props) => {
     const favouriteClass = classNames({' active':!user.favourite});
     const favouriteTitle = user.favourite ? i18next.t('favourite_remove') : i18next.t('favourite_add');
     return (
-        <div className={`userlist__item-row ${animationClass}`}>
+        <div className={`userlist__item-row ${animationClass}`} style={props}>
             <div className="user-row">
                 <div className="user-row__info">
                     <div className="user-row__image">

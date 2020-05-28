@@ -13,3 +13,13 @@ export function setSortDir(key) {
         payload: key
     };
 }
+
+export function setNewSort(sortBy, sortDir) {
+    return {
+        type: types.sort.SET_SORT_USERS,
+        payload: {
+            sortBy,
+            sortDir
+        },
+    };
+}

@@ -11,6 +11,7 @@ import { itemsFetchDataSuccess }  from './actions/users';
 import { setTerm }  from './actions/term';
 import { setSortBy, setSortDir }  from './actions/sort';
 import { setView } from './actions/view';
+import { setStateFromUrl } from './actions/url';
 
 import Controls from './components/controls/controls';
 import Langpanel from './components/controls/langpanel';
@@ -27,39 +28,22 @@ class App extends Component {
         super(props);
         this.setLanguage = this.setLanguage.bind(this);
     }
-
-    static propTypes = {
-        children: PropTypes.node,
-    };
     componentWillMount() {
         this.setLanguage(this.props.lang);
     }
     componentDidMount() {
-        //подгружаем пользователей
-        this.props.fetchDataAction('/data/data.json');
         //обрабатываем адресную строку для инициализации нужного фильтра
         this.urlToProps();
+        //подгружаем пользователей
+        this.props.fetchDataAction('/data/data.json');
     }
-    getUrlParam = function(name) {
-        return new URLSearchParams(window.location.search).get(name);
-    };
     urlToProps = function() {
-        let sortBy = this.getUrlParam('sort_by');
-        if (sortBy) {
-            this.props.setSortByAction(sortBy);
-        }
-        let sortDir = this.getUrlParam('sort_dir');
-        if (sortDir) {
-            this.props.setSortDirAction(sortDir);
-        }
-        let term = this.getUrlParam('term');
-        if (term) {
-            this.props.setTermAction(term);
-        }
-        let view = this.getUrlParam('view');
-        if (view) {
-            this.props.setViewAction(view);
-        }
+        const url = new URLSearchParams(window.location.search);
+        let urlParams = {};
+        url.forEach(function(value, key) {
+            urlParams[key] = value;
+        });
+        this.props.setStateFromUrlAction(urlParams);
     };
     setLanguage(language) {
         let langResources = ruLocale;
@@ -117,7 +101,8 @@ const mapDispatchToProps = (dispatch) => {
         updateUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
         setTermAction: (term) => dispatch(setTerm(term)),
         setSortByAction: (key) => dispatch(setSortBy(key)),
-        setSortDirAction: (key) => dispatch(setSortDir(key))
+        setSortDirAction: (key) => dispatch(setSortDir(key)),
+        setStateFromUrlAction: (data) => dispatch(setStateFromUrl(data)),
     };
 };
 

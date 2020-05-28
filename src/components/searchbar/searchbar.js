@@ -1,5 +1,6 @@
 import React from 'react';
 import i18next from 'i18next';
+import PropTypes from 'prop-types';
 
 export const SearchBar = (props) => {
     const search = e => {
@@ -16,5 +17,10 @@ export const SearchBar = (props) => {
         />
     </div>
 )};
+
+SearchBar.propTypes = {
+    term: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

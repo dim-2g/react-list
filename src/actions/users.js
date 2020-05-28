@@ -1,5 +1,6 @@
 import * as types from '../constants/types';
 import { itemsIsLoading } from '../actions/loading';
+import { sort } from '../utils/sort';
 
 export function itemsFetchDataSuccess(users) {
     return {
@@ -39,8 +40,6 @@ export function setLastVisibleUsers(count) {
 }
 
 export function nextUsers(incrementVisibleUsers, lastVisibleUsers) {
-    console.log('incrementVisibleUsers', incrementVisibleUsers);
-    console.log('lastVisibleUsers', lastVisibleUsers);
     return {
         type: types.users.SET_NEXT,
         incrementVisibleUsers,
@@ -48,8 +47,15 @@ export function nextUsers(incrementVisibleUsers, lastVisibleUsers) {
     };
 }
 
+export function setLazyUsers(result) {
+    return {
+        type: types.users.LAZY,
+        payload: result
+    };
+}
+
 export function itemsFetchData(url) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(itemsIsLoading(true));
         fetch(url)
             .then((response) => {
@@ -61,8 +67,16 @@ export function itemsFetchData(url) {
             })
             .then((response) => response.json())
             .then((items) => {
+                const { sortBy, sortDir } = getState();
+                items = sort(items, sortBy, sortDir);
                 dispatch(itemsFetchDataSuccess(items))
             })
             .catch(() => console.log('error')/*dispatch(itemsHasErrored(true))*/);
+    };
+}
+
+export function setLoadingUsers() {
+    return {
+        type: types.loading.LOAD_USERS,
     };
 }

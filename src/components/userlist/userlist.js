@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeList as List } from "react-window";
 
-import { toggleFavourite, setVisibleUsers, setLastVisibleUsers, setTrackedHeight, nextUsers }  from '../../actions/users';
-import { itemsIsLoading } from '../../actions/loading';
+import {
+    toggleFavourite,
+    setVisibleUsers,
+    setLastVisibleUsers,
+    nextUsers,
+    setLazyUsers }  from '../../actions/users';
+import { scrollEndPage } from '../../actions/loading';
 import Item from './item';
 
-
-//let lastVisible = 0;
 class Userlist extends Component {
-    constructor(props) {
-        super(props);
-    }
     //поиск имени и фамилии среди элементов, учитывает разный порядок следования
     filter(users, term) {
         let filteredUsers = users.slice();
@@ -37,11 +34,25 @@ class Userlist extends Component {
         return filteredUsers;
     }
     handleWaypointEnter() {
-        const { loading, users, visibleElements, animatingList } = this.props;
-        if (!users || users.length == 0) return;
-        if (loading) return;
-        if (visibleElements >= users.length) return;
-        this.props.nextUsersAction(10, visibleElements);
+        if (!this.props.users || this.props.users.length == 0) return;
+        if (this.props.visibleElements >= this.props.users.length) return;
+        this.props.scrollEndPageAction(true);
+        if (!this.props.lazyUsers) {
+            this.loadMore();
+        }
+    }
+    handleWaypointLeave() {
+        this.props.scrollEndPageAction(false);
+    }
+    loadMore() {
+        this.props.setLazyUsersAction(true);
+        this.props.nextUsersAction(15, this.props.visibleElements);
+    }
+    setLastLoading() {
+        this.props.setLazyUsersAction(false);
+        if (this.props.scrollEndPage) {
+            this.loadMore();
+        }
     }
     render() {
         const { users, view, term, visibleElements, lastVisible } = this.props;
@@ -61,13 +72,24 @@ class Userlist extends Component {
                     if (index == lastVisible) {
                         indexTransition = 1;
                     }
+                    //console.log('delay: ', delay);
+                    let isLast = filteredUsers.length == index + 1;
                     //уникальный ключ, учитывающий порядок вывода и какой элемент там был
                     let userKey = `${user.id}-${index}-${view}`;
-                    return (<Item view={view} user={user} toggleFavouriteAction={toggleFavouriteAction} delay={delay} key={userKey} />);
+                    return <Item
+                        view={view}
+                        user={user}
+                        toggleFavouriteAction={toggleFavouriteAction}
+                        delay={delay}
+                        key={userKey}
+                        isLast={isLast}
+                        onLast={() => this.setLastLoading()}
+                    />
             })}
             <Waypoint
                 onEnter={() => this.handleWaypointEnter()}
-                bottomOffset={'-50px'}
+                onLeave={() => this.handleWaypointLeave()}
+                bottomOffset={'-100px'}
             />
             {term && filteredUsers.length == 0 &&
                 <div className="userlist__no-result">
@@ -80,32 +102,31 @@ class Userlist extends Component {
 }
 
 export const mapStateToProps = state => {
-return {
-    error: state.error,
-    loading: state.loading,
-    users: state.users,
-    sortBy: state.sortBy,
-    sortDir: state.sortBy,
-    lang: state.lang,
-    view: state.view,
-    term: state.term,
-    visibleElements: state.visibleElements,
-    lastVisible: state.lastVisible,
-    trackedHeight: state.trackedHeight,
-    animatingList: state.animatingList,
-};
+    return {
+        error: state.error,
+        loading: state.loading,
+        users: state.users,
+        sortBy: state.sortBy,
+        sortDir: state.sortBy,
+        lang: state.lang,
+        view: state.view,
+        term: state.term,
+        visibleElements: state.visibleElements,
+        lastVisible: state.lastVisible,
+        scrollEndPage: state.scrollEndPage,
+        lazyUsers: state.lazyUsers,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-return {
-    toggleFavouriteAction: (userId) => dispatch(toggleFavourite(userId)),
-    setVisibleUsersAction: (count) => dispatch(setVisibleUsers(count)),
-    setLastVisibleUsersAction:  (count) => dispatch(setLastVisibleUsers(count)),
-    setTrackedHeightAction: (count) => dispatch(setTrackedHeight(count)),
-    nextUsersAction: (incrementVisibleUsers, lastVisibleUsers) => dispatch(nextUsers(incrementVisibleUsers, lastVisibleUsers)),
-    itemsIsLoadingAvtion: (result) => dispatch(itemsIsLoading(result)),
-    animatingListAction: (result) =>  dispatch(animatingList(result)),
-};
+    return {
+        toggleFavouriteAction: (userId) => dispatch(toggleFavourite(userId)),
+        setVisibleUsersAction: (count) => dispatch(setVisibleUsers(count)),
+        setLastVisibleUsersAction:  (count) => dispatch(setLastVisibleUsers(count)),
+        nextUsersAction: (incrementVisibleUsers, lastVisibleUsers) => dispatch(nextUsers(incrementVisibleUsers, lastVisibleUsers)),
+        setLazyUsersAction: (result) => dispatch(setLazyUsers(result)),
+        scrollEndPageAction: (result) => dispatch(scrollEndPage(result)),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Userlist);

@@ -4,10 +4,8 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import Tap from 'react-interactions'
 
-import { setSortBy, setSortDir }  from '../../actions/sort';
-import { itemsFetchDataSuccess, initVisibleUsers, initTrackedHeight }  from '../../actions/users';
 import setUrlHistory from '../history';
-import {setNowVideoPlay} from "../../actions/video";
+import { setNewSort } from '../../actions/sort';
 
 const setButtonClass = (key, value) => {
     return classNames(
@@ -22,37 +20,17 @@ class Sortpanel extends Component {
     }
     sortBy(e, type) {
         e.preventDefault();
-        const { setSortByAction, setSortUsers, reinitVisibleUsersAction, setNowVideoPlayAction } = this.props;
-        const { users, sortDir } = this.props;
+        const { sortDir } = this.props;
         let sortBy = type;
-
-        const sorted = this.sort(users, sortBy, sortDir);
-        setSortUsers(sorted);
-        setSortByAction(sortBy);
+        this.props.setNewSortAction(sortBy, sortDir);
         setUrlHistory({name:'sort_by', value:sortBy});
-        reinitVisibleUsersAction();
-        setNowVideoPlayAction(null);
     }
     sortDir(e, type) {
         e.preventDefault();
-        const { setSortDirAction, setSortUsers, reinitVisibleUsersAction, setNowVideoPlayAction } = this.props;
-        const { users, sortBy } = this.props;
+        const { sortBy } = this.props;
         let sortDir = type;
-
-        const sorted = this.sort(users, sortBy, sortDir);
-        setSortUsers(sorted);
-        setSortDirAction(sortDir);
+        this.props.setNewSortAction(sortBy, sortDir);
         setUrlHistory({name:'sort_dir', value:sortDir});
-        reinitVisibleUsersAction();
-        setNowVideoPlayAction(null);
-    }
-    sort(users, sortBy, sortDir) {
-        let direction = (sortDir == 'asc') ? 1 : -1;
-        const sorted = [].slice.call(users).sort((a, b) => {
-            if (a[sortBy] === b[sortBy]) { return 0; }
-            return a[sortBy] > b[sortBy] ? direction : direction * -1;
-        });
-        return sorted;
     }
     render() {
         const { sortBy, sortDir } = this.props;
@@ -102,9 +80,6 @@ class Sortpanel extends Component {
 
 export const mapStateToProps = state => {
     return {
-        error: state.error,
-        loading: state.loading,
-        users: state.users,
         sortBy: state.sortBy,
         sortDir: state.sortDir,
         lang: state.lang
@@ -113,11 +88,7 @@ export const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSortByAction: (key) => dispatch(setSortBy(key)),
-        setSortDirAction: (key) => dispatch(setSortDir(key)),
-        setSortUsers: (users) => dispatch(itemsFetchDataSuccess(users)),
-        reinitVisibleUsersAction: () => dispatch(initVisibleUsers()),
-        setNowVideoPlayAction: (id) => dispatch(setNowVideoPlay(id))
+        setNewSortAction: (sortBy, sortDir) => dispatch(setNewSort(sortBy, sortDir)),
     };
 };
 

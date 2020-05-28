@@ -14,6 +14,7 @@ export const users = {
     SET_TRACKED_HEIGHT: 'users/tracked/height/set',
     REINIT_TRACKED_HEIGHT: 'users/tracked/height/reinit',
     SET_NEXT: 'users/set/next',
+    LAZY: 'users/lazy'
 };
 
 export const view = {
@@ -22,7 +23,8 @@ export const view = {
 
 export const sort = {
     SET: 'sortBy/set',
-    SET_DIR: 'sortDir/set'
+    SET_DIR: 'sortDir/set',
+    SET_SORT_USERS: 'set/sort/users',
 };
 
 export const term = {
@@ -38,9 +40,12 @@ export const video = {
 };
 
 export const loading = {
-    SET: 'loading/set'
+    SET: 'loading/set',
+    SCROLL_END_PAGE: 'scroll/end/page',
+    LOAD_USERS: 'users/load/now',
 };
 
-export const animating = {
-    USERS: 'animating/users'
-}
+export const url = {
+    INIT_FROM_URL: 'url/init',
+};
+

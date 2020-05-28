@@ -7,23 +7,33 @@ class Item extends Component{
         super(props);
         this.state = {
             animationClass: 'enter'
-        }
+        };
+        this.animationTimerStart = null;
+        this.animationTimerDone = null;
     }
     componentDidMount() {
-        const { delay } = this.props;
+        const { delay, isLast, onLast } = this.props;
         this.setState({
             animationClass: 'animation-start enter'
         });
-        setTimeout(() => {
+        this.animationTimerStart = setTimeout(() => {
             this.setState({
                 animationClass: 'animated enter-active',
             })
+            if (isLast) {
+                onLast();
+            }
         }, delay);
-        setTimeout(() => {
+        this.animationTimerDone = setTimeout(() => {
             this.setState({
                 animationClass: 'animated enter-done',
             })
         }, delay + 1400);
+
+    }
+    componentWillUnmount() {
+        clearInterval(this.animationTimerDone);
+        clearInterval(this.animationTimerStart);
     }
     render() {
         const { animationClass } = this.state;

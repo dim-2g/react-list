@@ -17,7 +17,12 @@ export const Controls = (props) => {
                 <Sortpanel />
             </div>
             <div className="controls__view">
-                <Viewpanel lang={lang} view={view} setView={setViewAction} reinitVisibleUsers={reinitVisibleUsersAction}/>
+                <Viewpanel
+                    lang={lang}
+                    view={view}
+                    setView={setViewAction}
+                    reinitVisibleUsers={reinitVisibleUsersAction}
+                />
             </div>
         </div>
     </div>

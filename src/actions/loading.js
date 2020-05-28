@@ -6,3 +6,10 @@ export function itemsIsLoading(status) {
         payload: status
     };
 }
+
+export function scrollEndPage(status) {
+    return {
+        type: types.loading.SCROLL_END_PAGE,
+        payload: status
+    };
+}
