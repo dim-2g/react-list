@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ReactPlayer from "react-player";
 import { connect } from 'react-redux';
+import { throttle } from 'lodash';
 
 import { playVideo, setNowVideoPlay } from '../../actions/video';
 
@@ -15,6 +16,7 @@ class VideoPleer extends Component {
         this.handlePause = this.handlePause.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.trottledFunction = throttle(this.handleScroll, 300);
     }
     handleScroll() {
         this.changeStatusVideo();
@@ -45,7 +47,7 @@ class VideoPleer extends Component {
         const videoBounding = this.videoRef.current.getBoundingClientRect();
         const centerVideo = videoBounding.y + videoBounding.height / 2;
         const centerScreen = document.documentElement.clientHeight / 2;
-        const rootMargin = 100;
+        const rootMargin = 50;
         const topRange = centerScreen - rootMargin - videoBounding.height / 2;
         const bottomRange = centerScreen + rootMargin + videoBounding.height / 2;
 
@@ -53,14 +55,14 @@ class VideoPleer extends Component {
     }
     componentDidMount() {
         //следим за скролом
-        window.addEventListener('scroll', this.handleScroll, true);
+        window.addEventListener('scroll', this.trottledFunction, true);
         //то же что в скроле
         setTimeout(() => {
             this.handleScroll();
         }, 100);
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll, true);
+        window.removeEventListener('scroll', this.trottledFunction, true);
     }
     handlePause() {
         //если пауза произошла в области видимости,
